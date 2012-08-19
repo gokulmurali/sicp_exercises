@@ -1,0 +1,27 @@
+(define (productnum v a b c)
+  (cond ((> a b) v)
+        ((or (even? c) (= c 0) (= a b)) (productnum (* v a) (+ a 2) b (+ c 1)))
+	(else(productnum (* v a) a b (+ c 1)))
+     ))
+(define (productden v a b c)
+  (cond ((> a b) v)
+	((even? c) (productden (* v a) (+ a 2) b (+ c 1)))
+	(else(productden (* v a) a b (+ c 1)))
+   )
+  )
+
+(define (pi n)
+  (* 4 
+     (/ (+ (productnum 1 2 n 0) .00) 
+	(productden 1 3 (- n 1) 1))))
+
+(define (check-n n)
+  (cond ((even? n) (pi n))
+        (else(pi (- n 1)))
+    )
+  )
+
+(check-n 100)
+(check-n 125)
+(check-n 150)
+(check-n 171)
